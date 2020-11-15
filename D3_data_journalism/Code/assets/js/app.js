@@ -70,6 +70,9 @@ function updateToolTip(chosenXAxis, circlesGroup) {
   if (chosenXAxis === "poverty") {
     label = "In Poverty (%)";
   }
+  else if (chosenXAxis === "income") {
+    label = "Household Income (Median)"
+  }
   else {
     label = "Age (Median)";
   }
@@ -155,6 +158,13 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
     .attr("value", "age") // value to grab for event listener
     .classed("inactive", true)
     .text("Age (median)");
+  
+  var incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("value", "income") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Household Income (Median)");
 
   // append y axis
   chartGroup.append("text")
@@ -163,7 +173,7 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Lacks Healthcare");
+    .text("Lacks Healthcare (%)");
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
@@ -196,8 +206,22 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
         // changes classes to change bold text
         if (chosenXAxis === "age") {
           povertyLabel
+            .classed("active", false)
+            .classed("inactive", true);
+          ageLabel
             .classed("active", true)
             .classed("inactive", false);
+          incomeLabel
+            .classed("active", false)
+            .classed("inactive", true);
+        }
+        else if (chosenXAxis === "income") {
+          incomeLabel
+            .classed("active", true)
+            .classed ("inactive", false)
+          povertyLabel
+            .classed("active", false)
+            .classed("inactive", true);
           ageLabel
             .classed("active", false)
             .classed("inactive", true);
@@ -209,6 +233,10 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
           povertyLabel
             .classed("active", true)
             .classed("inactive", false);
+          incomeLabel
+            .classed("active", false)
+            .classed("inactive", true);
+            
         }
       }
     });
