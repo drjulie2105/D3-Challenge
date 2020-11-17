@@ -145,7 +145,7 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
     .attr("r", 20)
     .attr("fill", "pink")
     .attr("opacity", ".5");
-
+  
 
   // Create group for two x-axis labels
   var labelsGroup = chartGroup.append("g")
@@ -184,6 +184,7 @@ d3.csv("assets/js/data.csv").then(function(stateData, err) {
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
 
 
   // x axis labels event listener
